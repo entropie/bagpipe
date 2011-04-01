@@ -1,0 +1,29 @@
+!!! XML
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title
+      = @title || "Lala"
+    %meta{'http-equiv' => "Content-Type",  :content => "text/html; charset=utf-8"}/
+    %meta{'http-equiv' => "Cache-Control", :content => "NO-CACHE"}/
+
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/css/b-reset.css" }=''
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/css/b-base.css" }=''
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/css/awesome.css" }=''    
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/css/squaregrid.css" }=''
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/css/bagpipe.css" }=''
+    %script{:type => "text/javascript", :src => "/js/jquery.js"}=""
+    %script{:type => "text/javascript", :src => "/js/jquery-ui.js"}=""
+    %script{:type => "text/javascript", :src => "/js/modernizr-1.6.min.js"}=""
+    %script{:type => "text/javascript", :src => "/js/bagpipe.js"}=""
+  %body
+    // #banner
+    //   banner
+    #wrap
+      #head
+        head
+      #swrap
+        #content= @content
+        .push
+    #footer
+      foot

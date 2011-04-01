@@ -1,0 +1,87 @@
+!clr_base      = #302b1d
+!clr_green1    = #3f522b
+!clr_green2    = #737d26
+!clr_green3    = #a99e46
+!clr_light     = #d9cb84
+
+!clr_main_bg = !clr_green1
+!clr_header_bg = !clr_main_bg + 20
+!clr_footer_bg = !clr_main_bg + 20  
+!clr_content_bg = !clr_green1 - 20  
+
+body
+  :height 100%
+  :font-family tahoma, 'Times New Roman', Georgia, serif
+  :background-color = !clr_main_bg
+  :color = !clr_light
+  :font-size 14px
+
+html
+  :height 100%
+  
+#wrap
+  :min-height 100%
+  :height auto !important
+  :height 100%
+  :margin 0 auto -50px
+
+#swrap
+  :margin-left 10%
+  :margin-right 10%
+  :min-width 900px
+
+#head
+  :text-align right
+  :padding-right 10%
+  :height 50px
+  :background-color = !clr_header_bg
+  
+#footer
+  :height 50px
+  :background-color = !clr_footer_bg
+
+.push
+  :clear both
+
+#content
+  :background-color = !clr_content_bg
+  :padding 20px
+  :margin-top -20px
+  :border-radius 15px
+  :-moz-border-radius 15px
+  :-webkit-box-shadow 5px 5px 10px #222 
+  :-moz-box-shadow 5px 5px 10px #222
+  :box-shadow 5px 5px 10px #222
+  :border 2px solid silver
+  :border-color = !clr_content_bg - 10
+  
+
+h1
+  :font-size 2em
+  :margin-bottom 10px
+  :margin-top -45px
+  :color = !clr_content_bg
+  :text-shadow 2px 2px #737d26
+  :letter-spacing 5px
+  :font-weight bolder
+
+.debug
+  :background-color red
+
+.clear
+  :clear both
+
+#browser
+  .line
+    :margin-top 5px
+    :margin-bottom 5px
+    :padding 5px
+    :border-radius 5px
+    :-moz-border-radius 5px
+    &.even
+      :background-color = !clr_content_bg - 5
+    &.odd
+      :background-color = !clr_content_bg + 5
+    &:hover
+      :background-color = !clr_content_bg + 40
+      :color #000

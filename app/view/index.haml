@@ -1,0 +1,7 @@
+%h1 Browser
+
+#browser
+  - @entries.each_with_index do |entry, i|
+    %div.line{:class => (i % 2 == 0 ? 'even' : 'odd')}
+      = bp_render_file "_entry.haml", :entry => entry
+    %div.clear
