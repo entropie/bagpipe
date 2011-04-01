@@ -7,6 +7,8 @@ module Bagpipe
 
   class Repository
 
+    ValidSongExtensions = ["mp3", "mp4", "ogg"]
+
     include Bagpipe
 
     module Playable
@@ -54,7 +56,7 @@ module Bagpipe
         target =
           if Bagpipe.directory?(full_path)
             Directory
-          elsif ["mp3"].include? File.extname(spath)[1..-1]
+          elsif ValidSongExtensions.include?(File.extname(spath)[1..-1].downcase)
             Song
           else
             Other
