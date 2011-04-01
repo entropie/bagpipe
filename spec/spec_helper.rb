@@ -7,6 +7,8 @@ require "lib/bagpipe"
 
 Bagpipe.path = "spec/spec_repos"
 
+include Bagpipe
+
 =begin
 Local Variables:
   mode:ruby
