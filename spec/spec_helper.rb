@@ -5,7 +5,7 @@
 
 require "lib/bagpipe"
 
-Bagpipe.path = File.expand_path("~/Music/local")
+Bagpipe.path = "spec/spec_repos"
 
 =begin
 Local Variables:

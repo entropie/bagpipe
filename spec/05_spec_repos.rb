@@ -10,7 +10,7 @@ describe Bagpipe::Repository do
   Repos = Bagpipe.repository
   context "Path" do
     it "should have a path" do
-      Repos.path.should == File.expand_path("~/Music/local")
+      Repos.path.should == "spec/spec_repos"
     end
   end
 
