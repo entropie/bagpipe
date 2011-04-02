@@ -9,6 +9,9 @@
 !clr_footer_bg = !clr_main_bg + 20  
 !clr_content_bg = !clr_green1 - 20  
 
+!clr_link = #bad455
+!clr_link_hover = #eeeeee
+  
 body
   :height 100%
   :font-family tahoma, 'Times New Roman', Georgia, serif
@@ -76,19 +79,18 @@ h1
 #browser
   .line
     a
-      :color #000
+      :color = !clr_link
       :text-decoration none
       &:hover
-        :color #eee
+        :color = !clr_link_hover
         :border-bottom 1px solid silver
-        :border-color #eee
+        :border-color = !clr_link_hover
     :margin-top 5px
     :margin-bottom 5px
     :padding 5px
     :border-radius 5px
     :-moz-border-radius 5px
     :position relative
-    :color #000
     .pimg
       :margin-top -7px
       :width 32px
@@ -103,19 +105,25 @@ h1
     &.song
       .pimg
         :margin-top 0px
+      a
+        :color = !clr_link - 30
+        &:hover
+          :color = !clr_link_hover
+          :border-style dashed
     &:hover
       :background-color = !clr_green1
       a
-        :color #eee
-      :color #eee
+        :color = !clr_link_hover
+      :color = !clr_link_hover
       .pimg
         :opacity 1
       .right
         :opacity 1
     .right
       :opacity 0.3
-      a
-        :border none
 
 .right
   :float right
+  a
+    :border 0px !important
+    :border-style none

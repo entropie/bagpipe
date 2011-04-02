@@ -21,6 +21,7 @@ module Bagpipe
         directories.each do |dir|
           dir_contents = read_dir(expand_path(dir))
           ret[dir] = dir_contents.map{|dc| Entry.select_for(File.join(dir, dc)) }
+          sort_by_type_and_name!(ret[dir])
           yield [dir, dir_contents] if block_given?
         end
 
@@ -29,11 +30,26 @@ module Bagpipe
       end
 
       def read_dir(dir)
-        normalize_entries(Dir.entries(dir))
+        entries = normalize_entries(Dir.entries(dir))
       end
 
       def normalize_entries(entries)
         entries.reject{|entry| entry =~ /^\.+/ }
+      end
+
+      def sort_by_type_and_name!(entries)
+        dirs, songs, rest = [], [], []
+        entries.each do |entry|
+          case entry
+          when Song
+            songs << entry
+          when Directory
+            dirs << entry
+          else
+            rest << entry
+          end
+        end
+        entries.replace(dirs.sort + songs.sort + rest.sort)
       end
 
     end
@@ -43,6 +59,10 @@ module Bagpipe
       include Bagpipe
 
       attr_reader :path
+
+      def <=>(o)
+        path <=> o.path
+      end
 
       def initialize(spath)
         @path = spath
@@ -71,6 +91,10 @@ module Bagpipe
 
       def link
         %Q'<a href="%s">#{File.basename(path)}</a>'
+      end
+
+      def playable?
+        true
       end
     end
 
@@ -135,6 +159,14 @@ module Bagpipe
 
       def image(width = 20, height = 20)
         %Q'<div class="pimg"><img src="/img/home-d.png" height=#{height} width=#{width}/></div>'
+      end
+
+      def playable?
+        false
+      end
+
+      def link
+        File.basename(path)
       end
     end
 
