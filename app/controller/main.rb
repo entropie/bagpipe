@@ -31,6 +31,7 @@ class MainController < BagpipeController
   def play(*fragments)
     response["Content-Type"] = "audio/x-scpls"
     frags = fragments.join
+    frags.gsub!(".pls", '')
     repository.read(frags).to_pls
   end
 

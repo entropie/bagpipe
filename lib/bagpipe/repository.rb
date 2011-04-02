@@ -145,7 +145,7 @@ module Bagpipe
       end
 
       def link
-        super % Rack::Utils.escape(path)
+        super % "#{Rack::Utils.escape(path)}.pls"
       end
 
       def image(width = 32, height = 32)
