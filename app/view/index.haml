@@ -1,6 +1,8 @@
 %h1 Browser
 
 #browser
+  - unless @top
+    = bp_render_file "_entry_top.haml", :url => @bl_url, :title => @bl_title
   - @entries.each_with_index do |entry, i|
     %div.line{:class => "#{(i % 2 == 0 ? 'even' : 'odd')} #{entry.csscls}"}
       = bp_render_file "_entry.haml", :entry => entry
