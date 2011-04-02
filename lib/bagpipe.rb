@@ -8,8 +8,9 @@ require "rubygems"
 require "ostruct"
 require "json"
 require "unicode"
-
 require "pp"
+
+require "rack/utils"
 
 module Bagpipe
 

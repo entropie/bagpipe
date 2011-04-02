@@ -1,1 +1,5 @@
-= @entry.path
+= @entry.image
+= @entry.link
+%div.right
+  %a{:href => "/play/#{@entry.path}"}
+    %img{:src => "/img/play-d.png", :height => "20px", :width => "20px"}

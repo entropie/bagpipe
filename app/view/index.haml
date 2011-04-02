@@ -2,6 +2,6 @@
 
 #browser
   - @entries.each_with_index do |entry, i|
-    %div.line{:class => (i % 2 == 0 ? 'even' : 'odd')}
+    %div.line{:class => "#{(i % 2 == 0 ? 'even' : 'odd')} #{entry.csscls}"}
       = bp_render_file "_entry.haml", :entry => entry
     %div.clear

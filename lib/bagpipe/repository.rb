@@ -68,6 +68,10 @@ module Bagpipe
       def inspect
         %Q'<%-10s #{path}>'
       end
+
+      def link
+        %Q'<a href="%s">#{File.basename(path)}</a>'
+      end
     end
 
     class Directory < Entry
@@ -86,6 +90,18 @@ module Bagpipe
       def entries
         read(*path)
       end
+
+      def csscls
+        "dir"
+      end
+
+      def link
+        super % Rack::Utils.escape(path)
+      end
+
+      def image(width = 32, height = 32)
+        %Q'<div class="pimg"><img src="/img/folder-d.png" height=#{height} width=#{width}/></div>'
+      end
     end
 
     class Song < Entry
@@ -94,11 +110,31 @@ module Bagpipe
       def inspect
         super % "Song"
       end
+
+      def csscls
+        "song"
+      end
+
+      def image(width = 20, height = 20)
+        %Q'<div class="pimg"><img src="/img/song-d.png" height=#{height} width=#{width}/></div>'
+      end
+
+      def link
+        super % "/play/#{Rack::Utils.escape(path)}"
+      end
     end
 
     class Other < Entry
       def inspect
         super % "Other"
+      end
+
+      def csscls
+        "other"
+      end
+
+      def image(width = 20, height = 20)
+        %Q'<div class="pimg"><img src="/img/home-d.png" height=#{height} width=#{width}/></div>'
       end
     end
 
