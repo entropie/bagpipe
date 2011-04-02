@@ -76,6 +76,8 @@ begin
     cfg.server["daemon"]    = default_options[:daemon]
   end
 
+  Bagpipe.url = "#{default_options[:hostname]}:#{default_options[:port]}"
+
   module Bagpipe::App
     trait[:mode] = :devel
     what = Config.server["daemon"] || :run

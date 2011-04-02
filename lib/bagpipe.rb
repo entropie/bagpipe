@@ -65,6 +65,16 @@ module Bagpipe
   end
   module_function :directory?
 
+  def url=(str)
+    @url = str
+  end
+  module_function "url="
+
+  def url
+    @url || "http://localhost:8100/"
+  end
+  module_function :url
+
   extend self
 end
 

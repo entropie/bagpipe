@@ -3,6 +3,31 @@
 # Author:  Michael 'entropie' Trommer <mictro@gmail.com>
 #
 
+module Playlist
+  def to_pls
+    j = 0
+    str = "[playlist]\n"
+    each_with_index do |entry, index|
+      if entry.kind_of?(Bagpipe::Repository::Song)
+        j += 1
+        ind = index+1
+        str << "File#{ind}=#{entry.http_path}\n"
+        str << "Title#{ind}=#{File.basename(entry.path)}\n"
+        #str << "Length#{ind}=234\n"
+        str << "\n"
+      end
+    end
+
+    str << "\nNumberOfEntries=#{j}\n"
+    str << "Version=2"
+    str
+  end
+end
+
+class Array
+  include Playlist
+end
+
 module Bagpipe
 
   class Repository
@@ -130,6 +155,12 @@ module Bagpipe
 
     class Song < Entry
       include Playable
+
+      def http_path
+        url = Bagpipe.url
+        url = "#{url}/" unless url[-1..-1] == "/"
+        "http://#{url}raw/#{Rack::Utils.escape(path)}"
+      end
 
       def inspect
         super % "Song"

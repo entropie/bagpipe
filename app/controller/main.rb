@@ -5,6 +5,9 @@
 
 class MainController < BagpipeController
 
+  set_layout_except :layout => [:play, :raw]
+
+  # FIXME: just sucks
   def index(*fragments)
     if fragments.empty?
       fragments = ["/"]
@@ -13,19 +16,37 @@ class MainController < BagpipeController
       @top = false
     end
     frags = fragments.join
-    @backlink = "/"
     @frags = frags.split("/")
     if f=@frags[0..-2]
-      title = f.join
+      title = @frags.join
       title = "/" if title.empty?
       @bl_url = "/#{Rack::Utils.escape(f.join("/"))}"
+      @bl_curl = Rack::Utils.escape(@frags.join("/"))
       @bl_title = "#{title}"
     end
     @entries = repository.read(frags)
   end
 
+
+  def play(*fragments)
+    response["Content-Type"] = "audio/x-scpls"
+    frags = fragments.join
+    repository.read(frags).to_pls
+  end
+
 end
 
+
+class MController < Ramaze::Controller
+  map "/raw"
+  engine :None
+  def index(*fragments)
+    response["Content-Type"] = "audio/mpeg"
+    file = Bagpipe.expand_path(fragments)
+    File.read(file)
+  end
+
+end
 
 =begin
 Local Variables:
