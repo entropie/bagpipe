@@ -37,14 +37,16 @@ class MainController < BagpipeController
 
   def make_backlinks(*frags)
     arr = frags.dup
-    arr.unshift("")
-    arr.inject([]) do |m, part|
-      ind = arr.index(part)
-      c = arr[0..ind]
-      url, desc = Rack::Utils.escape(c.join("/")[1..-1]), c.last
-      url, desc = "/", "root" if desc.empty?
-      m << %Q'<a class="backlink#{ind == arr.size-1 ? " current" : ""}" href="#{url}">#{desc}</a>'
-    end.join("/")
+    #arr.unshift("")
+    ret = []
+
+    arr.each_with_index do |frag, ind|
+      c = arr[0..arr.index(frag)]
+      clas = arr.index(frag) == arr.size-1 ? " current" : ''
+      ret << %Q'<a class="backlink #{clas}" href="/#{c.map{|part| Rack::Utils.escape(part) }.join("/")}">#{c.last}</a>'
+    end
+    ret.unshift %Q'<a class="backlink" href="/">ROOT</a>'
+    ret.join("/")
   end
 
 end

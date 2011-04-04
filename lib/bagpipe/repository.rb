@@ -125,7 +125,7 @@ module Bagpipe
       end
 
       def link
-        %Q'<a href="%s">#{File.basename(path)}</a>'
+        %Q'<a href="/%s">#{File.basename(path)}</a>'
       end
 
       def playable?
@@ -185,7 +185,7 @@ module Bagpipe
       end
 
       def link
-        super % ("/play/" + path.split("/").map{|part| Rack::Utils.escape(part)}.join("/") + ".pls")
+        super % ("play/" + path.split("/").map{|part| Rack::Utils.escape(part)}.join("/") + ".pls")
       end
     end
 
