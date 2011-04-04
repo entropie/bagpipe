@@ -155,7 +155,7 @@ module Bagpipe
       end
 
       def link
-        super % "#{Rack::Utils.escape(path)}"
+        super % path.split("/").map{|part| Rack::Utils.escape(part)}.join("/") ##{Rack::Utils.escape(path)}"
       end
 
       def image(width = 32, height = 32)
