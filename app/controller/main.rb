@@ -24,7 +24,7 @@ class MainController < BagpipeController
 
   def play(*fragments)
     response["Content-Type"] = "audio/x-scpls"
-    frags = fragments.join
+    frags = fragments.join("/")
     frags.gsub!(".pls", '')
     begin
       repository.read(frags).to_pls
@@ -55,7 +55,7 @@ class MController < Ramaze::Controller
   engine :None
   def index(*fragments)
     response["Content-Type"] = "audio/mpeg"
-    file = Bagpipe.expand_path(fragments)
+    file = Bagpipe.expand_path(fragments.join("/"))
     File.read(file)
   end
 

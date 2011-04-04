@@ -155,11 +155,11 @@ module Bagpipe
       end
 
       def link
-        super % path.split("/").map{|part| Rack::Utils.escape(part)}.join("/") ##{Rack::Utils.escape(path)}"
+        super % path.split("/").map{|part| Rack::Utils.escape(part)}.join("/")
       end
 
       def image(width = 32, height = 32)
-        %Q'<div class="pimg"><img src="/img/folder-d.png" height=#{height} width=#{width}/></div>'
+        %Q'<div class="pimg"><img src="/img/folder-d.png" height="#{height}" width="#{width}" /></div>'
       end
     end
 
@@ -169,7 +169,7 @@ module Bagpipe
       def http_path
         url = Bagpipe.url
         url = "#{url}/" unless url[-1..-1] == "/"
-        "http://#{url}raw/#{Rack::Utils.escape(path)}"
+        "http://#{url}raw/" + path.split("/").map{|part| Rack::Utils.escape(part)}.join("/")
       end
 
       def inspect
@@ -181,11 +181,11 @@ module Bagpipe
       end
 
       def image(width = 20, height = 20)
-        %Q'<div class="pimg"><img src="/img/song-d.png" height=#{height} width=#{width}/></div>'
+        %Q'<div class="pimg"><img src="/img/song-d.png" height="#{height}" width="#{width}" /></div>'
       end
 
       def link
-        super % "/play/#{Rack::Utils.escape(path)}.pls"
+        super % ("/play/" + path.split("/").map{|part| Rack::Utils.escape(part)}.join("/") + ".pls")
       end
     end
 
