@@ -80,6 +80,7 @@ begin
 
   module Bagpipe::App
     trait[:mode] = :devel
+    trait[:adapter] = :mongrel
     what = Config.server["daemon"] || :run
     send(what)
   end
