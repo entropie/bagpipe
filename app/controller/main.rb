@@ -17,17 +17,7 @@ class MainController < BagpipeController
     end
     frags = fragments.join
     @frags = frags.split("/")
-    if f=@frags[0..-2]
-      title = @frags.join("/")
-      title = "/" if title.empty?
-      @bl_url = "/#{Rack::Utils.escape(f.join("/"))}"
-      @bl_curl = Rack::Utils.escape(@frags.join("/"))
-
-      p @frags
-      p @backlink_line = make_backlinks(*@frags)
-
-      @bl_title = "#{title}"
-    end
+    @backlink_line = make_backlinks(*@frags)
     @entries = repository.read(frags)
   end
 
