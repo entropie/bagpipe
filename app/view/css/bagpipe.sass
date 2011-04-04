@@ -36,7 +36,7 @@ html
 #head
   :text-align right
   :padding-right 10%
-  :height 50px
+  :height 100px
   :background-color = !clr_header_bg
   :color silver
   
@@ -51,7 +51,7 @@ html
 #content
   :background-color = !clr_content_bg
   :padding 20px
-  :margin-top -20px
+  :margin-top -30px
   :border-radius 15px
   :-moz-border-radius 15px
   :-webkit-box-shadow 5px 5px 10px #222 
@@ -86,6 +86,10 @@ h1
         :color = !clr_link_hover
         :border-bottom 1px solid silver
         :border-color = !clr_link_hover
+      &.backlink
+        &.current
+          :font-style italic
+          :font-weight normal
     :margin-top 5px
     :margin-bottom 5px
     :padding 5px

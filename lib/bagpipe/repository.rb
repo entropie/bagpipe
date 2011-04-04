@@ -4,22 +4,32 @@
 #
 
 module Playlist
-  def to_pls
-    j = 0
-    str = "[playlist]\n"
-    each_with_index do |entry, index|
+
+  class Cnt
+    def initialize(i = 0)
+      @cnt = 0
+    end
+    def succ
+      @cnt+=1
+    end
+    def to_i
+      @cnt
+    end
+  end
+
+  def to_pls(j = Cnt.new, str = "[playlist]\n", init = true)
+    each do |entry|
       if entry.kind_of?(Bagpipe::Repository::Song)
-        j += 1
-        ind = index+1
-        str << "File#{ind}=#{entry.http_path}\n"
-        str << "Title#{ind}=#{File.basename(entry.path)}\n"
-        #str << "Length#{ind}=234\n"
-        str << "\n"
+        str << "File#{j.succ}=#{entry.http_path}\n"
+        str << "Title#{j.to_i}=#{File.basename(entry.path)}\n"
+      elsif entry.kind_of?(Bagpipe::Repository::Directory)
+        str << entry.read.to_pls(j, '', false)
       end
     end
-
-    str << "\nNumberOfEntries=#{j}\n"
-    str << "Version=2"
+    if init
+      str << "\nNumberOfEntries=#{j.to_i}\n"
+      str << "Version=2"
+    end
     str
   end
 end
@@ -175,7 +185,7 @@ module Bagpipe
       end
 
       def link
-        super % "/play/#{Rack::Utils.escape(path)}"
+        super % "/play/#{Rack::Utils.escape(path)}.pls"
       end
     end
 

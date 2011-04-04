@@ -22,6 +22,10 @@ class MainController < BagpipeController
       title = "/" if title.empty?
       @bl_url = "/#{Rack::Utils.escape(f.join("/"))}"
       @bl_curl = Rack::Utils.escape(@frags.join("/"))
+
+      p @frags
+      p @backlink_line = make_backlinks(*@frags)
+
       @bl_title = "#{title}"
     end
     @entries = repository.read(frags)
@@ -32,7 +36,25 @@ class MainController < BagpipeController
     response["Content-Type"] = "audio/x-scpls"
     frags = fragments.join
     frags.gsub!(".pls", '')
-    repository.read(frags).to_pls
+    begin
+      repository.read(frags).to_pls
+    rescue Errno::ENOTDIR
+      [Bagpipe::Repository::Entry.select_for(frags)].to_pls
+    end
+  end
+
+  private
+
+  def make_backlinks(*frags)
+    arr = frags.dup
+    arr.unshift("")
+    arr.inject([]) do |m, part|
+      ind = arr.index(part)
+      c = arr[0..ind]
+      url, desc = Rack::Utils.escape(c.join("/")[1..-1]), c.last
+      url, desc = "/", "root" if desc.empty?
+      m << %Q'<a class="backlink#{ind == arr.size-1 ? " current" : ""}" href="#{url}">#{desc}</a>'
+    end.join("/")
   end
 
 end
