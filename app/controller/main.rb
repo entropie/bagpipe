@@ -16,9 +16,10 @@ class MainController < BagpipeController
       @top = false
     end
     frags = fragments.join
-    @frags = frags.split("/")
-    @backlink_line = make_backlinks(*@frags)
+    frags = frags.split("/")
+    @backlink_line = make_backlinks(*frags)
     @entries = repository.read(frags)
+    @bl_curl = Rack::Utils.escape(frags.join("/"))
   end
 
 
