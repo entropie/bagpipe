@@ -143,6 +143,10 @@ module Bagpipe
     class Packed < Entry
       include Downloadable
 
+      def playable?
+        false
+      end
+
       def inspect
         what = File.extname(path)[1..-1]
         super % "Pack(#{what})"
