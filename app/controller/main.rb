@@ -61,6 +61,16 @@ class MController < Ramaze::Controller
     File.read(file)
   end
 
+  def download(*path)
+    file = Bagpipe.expand_path(path.join("/"))
+    destdir = File.join(Bagpipe::Source, "app/public/downloads")
+    FileUtils.mkdir_p(destdir)
+    destfile = File.join(destdir, bn = File.basename(file))
+    FileUtils.ln_s(file, destfile) unless File.exist?(destfile)
+    redirect "/downloads/#{Rack::Utils.escape(bn)}"
+    # response["Content-Type"] = `file -I '#{file}'`.split.last
+    # wrespond File.read(file)
+  end
 end
 
 =begin

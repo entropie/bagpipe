@@ -7,7 +7,7 @@ module Playlist
 
   class Cnt
     def initialize(i = 0)
-      @cnt = 0
+      @cnt = i
     end
     def succ
       @cnt+=1
@@ -48,6 +48,8 @@ module Bagpipe
 
     module Playable
     end
+    module Downloadable
+    end
 
     module Browseable
 
@@ -73,18 +75,20 @@ module Bagpipe
       end
 
       def sort_by_type_and_name!(entries)
-        dirs, songs, rest = [], [], []
+        dirs, songs, rest, packs = [], [], [], []
         entries.each do |entry|
           case entry
           when Song
             songs << entry
           when Directory
             dirs << entry
+          when Packed
+            packs << entry
           else
             rest << entry
           end
         end
-        entries.replace(dirs.sort + songs.sort + rest.sort)
+        entries.replace(dirs.sort + songs.sort + packs.sort + rest.sort)
       end
 
     end
@@ -108,11 +112,14 @@ module Bagpipe
 
         spath = spath[1..-1] if spath =~ /^\//
 
+        ext = File.extname(spath)[1..-1].downcase rescue ""
         target =
           if Bagpipe.directory?(full_path)
             Directory
-          elsif ValidSongExtensions.include?(File.extname(spath)[1..-1].downcase)
+          elsif ValidSongExtensions.include?(ext)
             Song
+          elsif ["zip", "rar", "gz", "bz2"].include?(ext)
+            Packed
           else
             Other
           end
@@ -130,6 +137,27 @@ module Bagpipe
 
       def playable?
         true
+      end
+    end
+
+    class Packed < Entry
+      include Downloadable
+
+      def inspect
+        what = File.extname(path)[1..-1]
+        super % "Pack(#{what})"
+      end
+
+      def csscls
+        "pack"
+      end
+
+      def link
+        super % ("raw/download/" + path.split("/").map{|part| Rack::Utils.escape(part)}.join("/"))
+      end
+
+      def image(width = 32, height = 32)
+        %Q'<div class="pimg"><img src="/img/zip-d.png" height="#{height}" width="#{width}" /></div>'
       end
     end
 

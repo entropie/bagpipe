@@ -51,6 +51,7 @@ module Bagpipe
   end
 
   def expand_path(npath)
+    raise if npath.include?("..")
     File.join(Bagpipe.path, npath)
   end
   module_function :expand_path
