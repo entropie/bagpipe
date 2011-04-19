@@ -17,6 +17,26 @@ module Playlist
     end
   end
 
+  def to_player_plist_arr
+    playlist = []
+    sort_by{|name, url| name}.each do |entry|
+      if entry.kind_of?(Bagpipe::Repository::Song)
+        playlist << ["name: '#{File.basename(entry.path)}'", "mp3: '#{entry.http_path}'"]
+      elsif entry.kind_of?(Bagpipe::Repository::Directory)
+        playlist.push(*entry.read.to_player_plist_arr.sort_by{|name, url| name})
+      end
+    end
+    playlist
+  end
+
+  def to_player_plist
+    playlist = ""
+    to_player_plist_arr.each{|name, url|
+      playlist << "{ #{name}, #{url} },\n"
+    }
+    playlist[0..-3]
+  end
+
   def to_pls(j = Cnt.new, str = "[playlist]\n", init = true)
     each do |entry|
       if entry.kind_of?(Bagpipe::Repository::Song)
@@ -31,6 +51,38 @@ module Playlist
       str << "Version=2"
     end
     str
+  end
+end
+
+# class Playlists < Hash
+
+#   class << self
+#     def playlists
+#       @playlists ||= Playlists.new
+#     end
+
+#     def [](obj)
+#       playlists[obj]
+#     end
+
+#     def []=(obj)
+#       playlists[
+#     end
+#   end
+
+#   def initialize
+#     super{|h,k| h[k] = Playlists.new}
+#   end
+# end
+
+class UserPlaylist
+
+  include Playlist
+
+  attr_reader :sid
+
+  def initialize(sid)
+    @sid = sid
   end
 end
 

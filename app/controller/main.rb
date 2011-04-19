@@ -9,6 +9,7 @@ class MainController < BagpipeController
 
   # FIXME: just sucks
   def index(*fragments)
+    #
     if fragments.empty?
       fragments = ["/"]
       @top = true
@@ -33,7 +34,25 @@ class MainController < BagpipeController
     end
   end
 
+  def playlist
+    p user_sid
+  end
+
+  def player(*fragments)
+    frags = fragments.join("/")
+    @title = frags
+    begin
+      @playlist = repository.read(frags).to_player_plist
+    rescue Errno::ENOTDIR
+      redirect_referer
+    end
+  end
+
   private
+
+  def user_sid
+    Ramaze::Request.current.cookies["innate.sid"]
+  end
 
   def make_backlinks(*frags)
     arr = frags.dup
