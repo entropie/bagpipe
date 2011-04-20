@@ -21,7 +21,7 @@ module Playlist
     playlist = []
     sort_by{|name, url| name}.each do |entry|
       if entry.kind_of?(Bagpipe::Repository::Song)
-        playlist << ["name: '#{File.basename(entry.path)}'", "mp3: '#{entry.http_path}'"]
+        playlist << ["#{File.basename(entry.path)}", "#{entry.http_path}"]
       elsif entry.kind_of?(Bagpipe::Repository::Directory)
         playlist.push(*entry.read.to_player_plist_arr.sort_by{|name, url| name})
       end
@@ -29,12 +29,15 @@ module Playlist
     playlist
   end
 
+  class PlaylistSong < Struct.new(:name, :url, :duration)
+  end
+
   def to_player_plist
-    playlist = ""
+    @playlist = []
     to_player_plist_arr.each{|name, url|
-      playlist << "{ #{name}, #{url} },\n"
+      @playlist << PlaylistSong.new(name, url, "02.05")
     }
-    playlist[0..-3]
+    @playlist
   end
 
   def to_pls(j = Cnt.new, str = "[playlist]\n", init = true)

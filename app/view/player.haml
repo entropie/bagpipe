@@ -1,28 +1,13 @@
 %h1 Player
 %h2
   %em= @title
-#jquery_jplayer_1.jp-jplayer
-.jp-audio
-  .jp-type-playlist
-    #jp_interface_1.jp-interface
-      %ul.jp-controls
-        %li
-          %a.jp-play{:href => "#"} Play
-          %a.jp-pause{:href => "#"} Pause
-          %a.jp-stop{:href => "#"} Stop
-          %a.jp-mute{:href => "#"} Mute
-          %a.jp-unmute{:href => "#"} Unmute          
-          %a.jp-previous{:href => "#"} Previous
-          %a.jp-next{:href => "#"} Next          
-      .jp-progress
-        .jp-seek-bar
-          .jp-play-bar
-      .jp-volume-bar
-        .jp-volume-bar-value
-      .jp-current-time
-      .jp-duration
-    #jp_playlist_1.jp-playlist
-      %ul
-        %li
+#playlista{}
+  - @playlist.each do |entry|
+    %div{:style => "clear:both"}
+    .item{:href => entry.url, :style => "width:100%"}
+      %div
+        .btn.play
+        .title= entry.name
+      .player.inactive
+#ext
   
-      
