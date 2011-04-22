@@ -62,9 +62,9 @@ html
   
 
 h1
-  :font-size 2em
+  :font-size 3em
   :margin-bottom 10px
-  :margin-top -47px
+  :margin-top -60px
   :margin-left -10px
   :color = !clr_content_bg
   :text-shadow 1px 1px #737d26
@@ -83,6 +83,10 @@ h2
 
 #browser
   .line
+    .dimg
+      :max-width 128px
+      :max-height 128px
+      :margin-left 40px
     a
       :color = !clr_link
       :text-decoration none
@@ -100,6 +104,11 @@ h2
     :border-radius 8px
     :-moz-border-radius 8px
     :position relative
+    &:hover
+      .btn
+        :opacity 1
+    .btn
+      :opacity 0.3
     .pimg
       :margin-top -7px
       :width 32px
@@ -109,6 +118,7 @@ h2
       :opacity 0.3
     &.top
       :font-weight bolder
+      :font-size 1.2em
     &.even
       :background-color = !clr_content_bg - 3
     &.odd
@@ -138,3 +148,15 @@ h2
   a
     :border 0px !important
     :border-style none
+
+.item
+  :display inline
+  .cnts
+    :display inline
+  .player
+    :text-align center
+    :margin 10px
+    :height 27px
+    :padding 10px
+    :background-color = !clr_content_bg
+

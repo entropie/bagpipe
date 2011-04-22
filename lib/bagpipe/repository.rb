@@ -17,28 +17,28 @@ module Playlist
     end
   end
 
-  def to_player_plist_arr
-    playlist = []
-    sort_by{|name, url| name}.each do |entry|
-      if entry.kind_of?(Bagpipe::Repository::Song)
-        playlist << ["#{File.basename(entry.path)}", "#{entry.http_path}"]
-      elsif entry.kind_of?(Bagpipe::Repository::Directory)
-        playlist.push(*entry.read.to_player_plist_arr.sort_by{|name, url| name})
-      end
-    end
-    playlist
-  end
+  # def to_player_plist_arr
+  #   playlist = []
+  #   sort_by{|name, url| name}.each do |entry|
+  #     if entry.kind_of?(Bagpipe::Repository::Song)
+  #       playlist << ["#{File.basename(entry.path)}", "#{entry.http_path}"]
+  #     elsif entry.kind_of?(Bagpipe::Repository::Directory)
+  #       playlist.push(*entry.read.to_player_plist_arr.sort_by{|name, url| name})
+  #     end
+  #   end
+  #   playlist
+  # end
 
-  class PlaylistSong < Struct.new(:name, :url, :duration)
-  end
+  # class PlaylistSong < Struct.new(:name, :url, :duration)
+  # end
 
-  def to_player_plist
-    @playlist = []
-    to_player_plist_arr.each{|name, url|
-      @playlist << PlaylistSong.new(name, url, "02.05")
-    }
-    @playlist
-  end
+  # def to_player_plist
+  #   playlist = []
+  #   to_player_plist_arr.each{|name, url|
+  #     playlist << PlaylistSong.new(name, url, "02.05")
+  #   }
+  #   playlist
+  # end
 
   def to_pls(j = Cnt.new, str = "[playlist]\n", init = true)
     each do |entry|
@@ -154,6 +154,14 @@ module Bagpipe
 
       attr_reader :path
 
+      def inline_playable?
+        false
+      end
+
+      def directory?
+        false
+      end
+
       def <=>(o)
         path <=> o.path
       end
@@ -223,6 +231,10 @@ module Bagpipe
     class Directory < Entry
       include Browseable
 
+      def directory?
+        true
+      end
+
       def inspect
         super % "Directory"
       end
@@ -253,6 +265,10 @@ module Bagpipe
     class Song < Entry
       include Playable
 
+      def inline_playable?
+        File.extname(path).downcase == ".mp3"
+      end
+
       def http_path
         url = Bagpipe.url
         url = "#{url}/" unless url[-1..-1] == "/"
@@ -268,7 +284,7 @@ module Bagpipe
       end
 
       def image(width = 20, height = 20)
-        %Q'<div class="pimg"><img src="/img/song-d.png" height="#{height}" width="#{width}" /></div>'
+        ""
       end
 
       def link
@@ -276,7 +292,35 @@ module Bagpipe
       end
     end
 
+    module Base64Image
+      def to_data_uri
+        img = File.join(Bagpipe.path, path)
+        type = File.extname(img)[1..-1].downcase
+
+        case type
+        when "jpg", "jpeg", "gif", "png", "bmp"
+          imgbody = [File.read(img)]
+          imgbody = imgbody.pack("m").gsub("\n", '')
+          return "data:#{type};base64,#{imgbody}"
+        else
+          false
+        end
+      end
+
+      def name_or_image
+        duri = to_data_uri
+        if duri
+          %Q'<img class="dimg" src="#{duri}" />'
+        else
+          File.basename(path)
+        end
+      end
+    end
+
     class Other < Entry
+
+      include Base64Image
+
       def inspect
         super % "Other"
       end
@@ -286,7 +330,7 @@ module Bagpipe
       end
 
       def image(width = 20, height = 20)
-        %Q'<div class="pimg"><img src="/img/home-d.png" height=#{height} width=#{width}/></div>'
+        %Q'<div class="pimg" style="display:none"><img src="/img/home-d.png" height=#{height} width=#{width}/></div>'
       end
 
       def playable?
@@ -294,7 +338,11 @@ module Bagpipe
       end
 
       def link
-        File.basename(path)
+        name_or_image
+      end
+
+      def name
+        link
       end
     end
 

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $("#playlista").playlist({
+  $("#browser").playlist({
       playerurl: "/swf/drplayer.swf"
   });
 

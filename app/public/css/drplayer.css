@@ -29,41 +29,36 @@ b
 
 .btn.play 
 {
-    width:16px;
-    height:17px;
-    background-image: url(/img/play.gif);
-    display: inline-block;
+    width:20px;
+    height:20px;
+    background-image: url(/img/play.png);
 }
 
 .btn.pause
 {
-    width:16px;
-    height:17px;
-    background-image: url(/img/pause.gif?2);
+    width:20px;
+    height:20px;
+    background-image: url(/img/pause.png);
+    opacity:1 !important;
 }
 
 .btn.paused
 {
-    width:16px;
-    height:17px;
-    background-image: url(/img/play.gif?3);
+    width:20px;
+    height:20px;
+    background-image: url(/img/play.png);
     display: inline-block;
 }
 
 
 div.player 
 {
-    height:14px;
-    margin-top:5px;
-    margin-bottom:10px;
-    padding-left:20px;
 }
 
 div.player.inactive
 {
-    margin-top:5px;
-    margin-bottom:0px;
-    border-top: dashed 1px #555555;
+    margin:0px;
+    display:none;
 }
 
 .item .title 
@@ -75,6 +70,7 @@ div.player.inactive
 {
     display:inline;
     float:left; 
-    margin-right:5px;
+    margin-right:10px;
     cursor:pointer;
+    margin-left:10px;
 }

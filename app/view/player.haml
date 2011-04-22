@@ -1,7 +1,7 @@
 %h1 Player
 %h2
   %em= @title
-#playlista{}
+#playlista
   - @playlist.each do |entry|
     %div{:style => "clear:both"}
     .item{:href => entry.url, :style => "width:100%"}
