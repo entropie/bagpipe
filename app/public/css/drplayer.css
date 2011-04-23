@@ -9,12 +9,6 @@ float: right;
 }
 .clear { clear: both; line-height: 0px !important; font-size: 0px !important; height: 0 !important }
 
-a 
-{
-   color:   #555555; 
-   font-weight: bold;
-}
-
 b 
 {
    color:   #555555; 
