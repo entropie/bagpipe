@@ -43,12 +43,36 @@ html
 #footer
   :height 50px
   :background-color = !clr_footer_bg
+  :text-align center
+  .content
+    :text-align right
+    :margin-right 10%
+    :padding-top 15px
+    ul
+      :display inline
+      li
+        :display inline
+        :margin-left 20px
+    a
+      :color = !clr_footer_bg - 40
+      :text-decoration none
+      &:hover
+        :border-bottom 2px solid green
+        :border-color = !clr_footer_bg - 40
+      
 
 .push
   :clear both
   :padding-bottom 70px
 
+#banner
+  :position absolute
+  :top 20px
+  :right 4%
+  :opacity 0.7
+  
 #content
+  :opacity 0.95
   :background-color = !clr_content_bg
   :padding 20px
   :margin-top -30px

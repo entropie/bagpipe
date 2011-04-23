@@ -19,9 +19,12 @@
     %script{:type => "text/javascript", :src => "/js/drplayer.js"}=""
     %script{:type => "text/javascript", :src => "/js/bagpipe.js"}=""
   %body
+    #banner
+      %img{:src => "/img/banner.gif", :width => 130}
     #wrap
       #head
       #swrap
         #content= @content
         .push
-    #footer
+    = bp_render_file "_foot.haml"
+    
