@@ -13,7 +13,7 @@ class BagpipeController < Ramaze::Controller
 
   private
   def bp_render_file(arg, ohash = {})
-    render_file "app/view/#{arg}", ohash
+    render_file "#{Source}/app/view/#{arg}", ohash
   end
 
 end
