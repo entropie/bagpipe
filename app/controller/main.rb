@@ -5,8 +5,6 @@
 
 class MainController < BagpipeController
 
-  set_layout_except :layout => [:play, :raw]
-
   # FIXME: just sucks
   def index(*fragments)
     #
