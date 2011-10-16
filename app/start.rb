@@ -5,7 +5,9 @@
 
 
 require "rubygems"
-require "ramaze"
+$: << "../../innate/lib"
+require "../../ramaze/lib/ramaze.rb"
+
 
 begin
   require "../lib/bagpipe"
@@ -23,7 +25,6 @@ controller = %w"bagpipe main css".map{ |lib|
 libs = []
 
 (controller + libs).each{|lib| require lib}
-
 
 
 =begin
