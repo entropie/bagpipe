@@ -1,186 +1,184 @@
-!clr_base      = #302b1d
-!clr_green1    = #3f522b
-!clr_green2    = #737d26
-!clr_green3    = #a99e46
-!clr_light     = #d9cb84
+$clr_base: #302b1d
+$clr_green1: #3f522b
+$clr_green2: #737d26
+$clr_green3: #a99e46
+$clr_light: #d9cb84
 
-!clr_main_bg = !clr_green1
-!clr_header_bg = !clr_main_bg + 20
-!clr_footer_bg = !clr_main_bg + 20  
-!clr_content_bg = !clr_green1 - 20  
+$clr_main_bg: $clr_green1
+$clr_header_bg: $clr_main_bg + 20
+$clr_footer_bg: $clr_main_bg + 20
+$clr_content_bg: $clr_green1 - 20
 
-!clr_link = #bad455
-!clr_link_hover = #eeeeee
-  
+$clr_link: #bad455
+$clr_link_hover: #eeeeee
+
 body
-  :height 100%
-  :font-family tahoma, 'Times New Roman', Georgia, serif
-  :background-color = !clr_main_bg
-  :color = !clr_light
-  :font-size 14px
+  height: 100%
+  font-family: tahoma, "Times New Roman", Georgia, serif
+  background-color: $clr_main_bg
+  color: $clr_light
+  font-size: 14px
 
 html
-  :height 100%
-  
+  height: 100%
+
 #wrap
-  :min-height 100%
-  :height auto !important
-  :height 100%
-  :margin 0 auto -50px
+  min-height: 100%
+  height: auto !important
+  height: 100%
+  margin: 0 auto -50px
 
 #swrap
-  :margin-left 10%
-  :margin-right 10%
-  :min-width 900px
+  margin-left: 10%
+  margin-right: 10%
+  min-width: 900px
 
 #head
-  :text-align right
-  :padding-right 10%
-  :height 100px
-  :background-color = !clr_header_bg
-  :color silver
-  
+  text-align: right
+  padding-right: 10%
+  height: 100px
+  background-color: $clr_header_bg
+  color: silver
+
 #footer
-  :height 50px
-  :background-color = !clr_footer_bg
-  :text-align center
+  height: 50px
+  background-color: $clr_footer_bg
+  text-align: center
   .content
-    :text-align right
-    :margin-right 10%
-    :padding-top 15px
+    text-align: right
+    margin-right: 10%
+    padding-top: 15px
     ul
-      :display inline
+      display: inline
       li
-        :display inline
-        :margin-left 20px
+        display: inline
+        margin-left: 20px
     a
-      :color = !clr_footer_bg - 40
-      :text-decoration none
+      color: $clr_footer_bg - 40
+      text-decoration: none
       &:hover
-        :border-bottom 2px solid green
-        :border-color = !clr_footer_bg - 40
-      
+        border-bottom: 2px solid green
+        border-color: $clr_footer_bg - 40
 
 .push
-  :clear both
-  :padding-bottom 70px
+  clear: both
+  padding-bottom: 70px
 
 #banner
-  :position absolute
-  :top 20px
-  :right 4%
-  :opacity 0.7
-  
+  position: absolute
+  top: 20px
+  right: 4%
+  opacity: 0.7
+
 #content
-  :opacity 0.95
-  :background-color = !clr_content_bg
-  :padding 20px
-  :margin-top -30px
-  :border-radius 15px
-  :-moz-border-radius 15px
-  :-webkit-box-shadow 5px 5px 10px #222 
-  :-moz-box-shadow 5px 5px 10px #222
-  :box-shadow 5px 5px 10px #222
-  :border 2px solid silver
-  :border-color = !clr_content_bg - 10
-  
+  opacity: 0.95
+  background-color: $clr_content_bg
+  padding: 20px
+  margin-top: -30px
+  border-radius: 15px
+  -moz-border-radius: 15px
+  -webkit-box-shadow: 5px 5px 10px #222222
+  -moz-box-shadow: 5px 5px 10px #222222
+  box-shadow: 5px 5px 10px #222222
+  border: 2px solid silver
+  border-color: $clr_content_bg - 10
 
 h1
-  :font-size 3em
-  :margin-bottom 10px
-  :margin-top -60px
-  :margin-left -10px
-  :color = !clr_content_bg
-  :text-shadow 1px 1px #737d26
-  :letter-spacing 20px
-  :font-weight bolder
+  font-size: 3em
+  margin-bottom: 10px
+  margin-top: -60px
+  margin-left: -10px
+  color: $clr_content_bg
+  text-shadow: 1px 1px #737d26
+  letter-spacing: 20px
+  font-weight: bolder
+
 h2
-  :font-size 1.6em
-  :color silver
-  :margin-bottom 20px
+  font-size: 1.6em
+  color: silver
+  margin-bottom: 20px
 
 .debug
-  :background-color red
+  background-color: red
 
 .clear
-  :clear both
+  clear: both
 
 #browser
   .line
     .dimg
-      :max-width 128px
-      :max-height 128px
-      :margin-left 40px
+      max-width: 128px
+      max-height: 128px
+      margin-left: 40px
     a
-      :color = !clr_link
-      :text-decoration none
+      color: $clr_link
+      text-decoration: none
       &:hover
-        :color = !clr_link_hover
-        :border-bottom 1px solid silver
-        :border-color = !clr_link_hover
+        color: $clr_link_hover
+        border-bottom: 1px solid silver
+        border-color: $clr_link_hover
       &.backlink
         &.current
-          :font-style italic
-          :font-weight normal
-    :margin-top 5px
-    :margin-bottom 5px
-    :padding 5px
-    :border-radius 8px
-    :-moz-border-radius 8px
-    :position relative
+          font-style: italic
+          font-weight: normal
+    margin-top: 5px
+    margin-bottom: 5px
+    padding: 5px
+    border-radius: 8px
+    -moz-border-radius: 8px
+    position: relative
     &:hover
       .btn
-        :opacity 1
+        opacity: 1
     .btn
-      :opacity 0.3
+      opacity: 0.3
     .pimg
-      :margin-top -7px
-      :width 32px
-      :float left
-      :text-align right
-      :margin-right 10px
-      :opacity 0.3
+      margin-top: -7px
+      width: 32px
+      float: left
+      text-align: right
+      margin-right: 10px
+      opacity: 0.3
     &.top
-      :font-weight bolder
-      :font-size 1.2em
+      font-weight: bolder
+      font-size: 1.2em
     &.even
-      :background-color = !clr_content_bg - 3
+      background-color: $clr_content_bg - 3
     &.odd
-      :background-color = !clr_content_bg + 3
+      background-color: $clr_content_bg + 3
     &.song
       .pimg
-        :margin-top 0px
+        margin-top: 0px
       a
-        :color = !clr_link - 30
+        color: $clr_link - 30
         &:hover
-          :color = !clr_link_hover
-          :border-style dashed
+          color: $clr_link_hover
+          border-style: dashed
     &:hover
-      :background-color = !clr_green1
+      background-color: $clr_green1
       a
-        :color = !clr_link_hover
-      :color = !clr_link_hover
+        color: $clr_link_hover
+      color: $clr_link_hover
       .pimg
-        :opacity 1
+        opacity: 1
       .right
-        :opacity 1
+        opacity: 1
     .right
-      :opacity 0.3
+      opacity: 0.3
 
 .right
-  :float right
+  float: right
   a
-    :border 0px !important
-    :border-style none
+    border: 0px !important
+    border-style: none
 
 .item
-  :display inline
+  display: inline
   .cnts
-    :display inline
+    display: inline
   .player
-    :text-align center
-    :margin 10px
-    :height 27px
-    :padding 10px
-    :background-color = !clr_content_bg
-
+    text-align: center
+    margin: 10px
+    height: 27px
+    padding: 10px
+    background-color: $clr_content_bg
