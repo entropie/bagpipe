@@ -17,7 +17,7 @@ help = ""
 
 default_options = {
   :port     => 8100,
-  :hostname => "localhost",
+  :hostname => "0.0.0.0",
   :repos    => File.expand_path("."),
   :adapter  => :webrick,
   :elog     => File.join(File.expand_path("~"), "/.bagpipe/", "error_log.log")
